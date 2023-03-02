@@ -1,4 +1,7 @@
 function pos_plot(pos)
+% takes an array of positions of the from array(body, timestep, component)
+% as input
+% produces a plot of the positions
 N = size(pos, 1);
 for i = 1:N
 	    plot3( ...
