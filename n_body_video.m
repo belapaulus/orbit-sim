@@ -1,4 +1,4 @@
-function [pos, vel, mass] = n_body_video(duration, dt, N, mass, pos0, vel0) 
+function [pos, vel] = n_body_video(duration, dt, N, mass, pos0, vel0) 
 % n body simulation
 % units: 
 %   s, m, kg
@@ -9,12 +9,10 @@ function [pos, vel, mass] = n_body_video(duration, dt, N, mass, pos0, vel0)
 % output:
 %   arrays containing the state of the system for each timestep
 %   array containing the mass of each body
-%
 
 % constants
 G = 6.6743e-11;
 steps = ceil(duration/dt);
-camera = max(pos0, [], "all"); % for creating the camera 
 
 % arrays for positions and velocities
 pos = zeros(N, steps, 3);
@@ -28,10 +26,12 @@ pos(:, 1, :) = pos0;
 ref = sum(vel(:, 1, :).*mass', 1) / sum(mass);
 vel(:, 1, :) = vel(:, 1, :) - ref;
 
-figure
-
 % run sim
 for step = 1:steps-1
+    if mod(step, 100) == 0
+        step
+    end
+
     % update ith body
 	for i = 1:N
 		vel(i, step+1, :) = vel(i, step, :);
@@ -45,38 +45,4 @@ for step = 1:steps-1
         end
 		pos(i, step + 1, :) = pos(i, step, :) + dt*vel(i, step + 1, :);
     end
-
-    % clear the current frame
-    clf
-
-    % plot the current positions and trails
-    txt = ['Step: ' num2str(step)];
-    subtitle(txt);
-    hold on
-    for i = 1:N
-	    plot3( ...
-            squeeze(pos(i, 1:step, 1)), ...
-            squeeze(pos(i, 1:step, 2)), ...
-            squeeze(pos(i, 1:step, 3)) ...
-        )
-        plot3( ...
-            squeeze(pos(i, step, 1)), ...
-            squeeze(pos(i, step, 2)), ...
-            squeeze(pos(i, step, 3)), ...
-            'r*' ...
-        )
-    end    
-    hold off
-
-    % set axis limits
-    axis equal
-    xlim([-1.5*camera,1.5*camera])
-    ylim([-1.5*camera,1.5*camera])
-    zlim([-1.5*camera,1.5*camera])
-    view([ ...
-        0.5*camera, ...
-        0.5*camera, ...
-        0.2*camera ...
-        ])
-    shg
 end
