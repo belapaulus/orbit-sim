@@ -1,4 +1,4 @@
-function [pos, vel] = n_body_video(duration, dt, N, mass, pos0, vel0) 
+function [pos, vel] = nbody(duration, dt, N, mass, pos0, vel0) 
 % n body simulation
 % units: 
 %   s, m, kg

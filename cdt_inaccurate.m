@@ -1,4 +1,4 @@
-function [pos, vel, dvel, timestamp] = n_body_video_changing_dt_inaccurate(duration, k, N, mass, pos0, vel0) 
+function [pos, vel, dvel, timestamp] = cdt_inaccurate(duration, k, N, mass, pos0, vel0) 
 % n body simulation
 % units: 
 %   s, m, kg

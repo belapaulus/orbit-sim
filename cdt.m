@@ -1,4 +1,4 @@
-function [pos, vel, vel2, dvel, timestamp] = n_body_video_changing_dt(duration, k, N, mass, pos0, vel0) 
+function [pos, vel, vel2, dvel, timestamp] = cdt(duration, k, N, mass, pos0, vel0) 
 % n body simulation
 % input:
 %   initial values and constants
