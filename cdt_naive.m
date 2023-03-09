@@ -1,11 +1,7 @@
 function [pos, vel, dvel, timestamp] = cdt_inaccurate(duration, k, N, mass, pos0, vel0) 
 % n body simulation
-% units: 
-%   s, m, kg
 % input:
 %   initial values and constants
-% side effects:
-%   creates moving figure
 % output:
 %   arrays containing the state of the system for each timestep
 %   array containing the mass of each body
@@ -53,7 +49,11 @@ while time < duration
     end
 
     % calculate next time step 
-    dt = k/norm(squeeze(vel(2, step, :)));
+    vnorm = zeros(N, 1);
+    for i = 1:N
+        vnorm(i) = norm(squeeze(vel(1, step, :))); 
+    end
+    dt = k/max(vnorm);
 
     % update the state
     for i = 1:N

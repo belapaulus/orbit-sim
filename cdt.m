@@ -51,10 +51,12 @@ while time < duration
     timestamp(step) = time;
 
     % calculate next time step 
-    % this is assuming that body 2 always has the highest velocity
-    % TODO: implement the general case
-    dt = k/norm(squeeze(vel(2, step, :)));
-
+    vnorm = zeros(N, 1);
+    for i = 1:N
+        vnorm(i) = norm(squeeze(vel(1, step, :))); 
+    end
+    dt = k/max(vnorm);
+    
     % calculate the velocity at t + dt/2
     % v(t+dt/2) = v(t) + dt/2 * F(x(t))/m
     vel2(:, step, :) = vel(:, step, :) + dt/2*dvel(:, step, :);
