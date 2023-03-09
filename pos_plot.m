@@ -3,6 +3,7 @@ function pos_plot(pos)
 % as input
 % produces a plot of the positions
 N = size(pos, 1);
+hold on
 for i = 1:N
 	    plot3( ...
             squeeze(pos(i, :, 1)), ...
